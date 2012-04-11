@@ -1,0 +1,26 @@
+checkocaml.cmo :
+checkocaml.cmx :
+odot.cmo : odot_version.cmi odot_types.cmi odot_parser.cmi odot_lexer.cmo \
+    odot.cmi
+odot.cmx : odot_version.cmx odot_types.cmi odot_parser.cmx odot_lexer.cmx \
+    odot.cmi
+odot_lexer.cmo : odot_parser.cmi
+odot_lexer.cmx : odot_parser.cmx
+odot_misc.cmo : odot_misc.cmi
+odot_misc.cmx : odot_misc.cmi
+odot_parser.cmo : odot_types.cmi odot_parser.cmi
+odot_parser.cmx : odot_types.cmi odot_parser.cmi
+odot_version.cmo : odot_version.cmi
+odot_version.cmx : odot_version.cmi
+odot_view.cmo : odot.cmi odot_view.cmi
+odot_view.cmx : odot.cmx odot_view.cmi
+test.cmo : odot.cmi
+test.cmx : odot.cmx
+test_gui.cmo : odot_view.cmi odot.cmi
+test_gui.cmx : odot_view.cmx odot.cmx
+odot.cmi :
+odot_misc.cmi :
+odot_parser.cmi : odot_types.cmi
+odot_types.cmi :
+odot_version.cmi :
+odot_view.cmi : odot.cmi

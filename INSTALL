@@ -1,0 +1,23 @@
+	Odot installation
+
+
+*** What you need ***
+- OCaml 3.09 or more installed
+- make ;-)
+
+- dot version 2.2.1 or above to use the rendering
+
+*** How to compile ***
+- ./configure
+- make depend
+- make all
+- make gui    if lablgtk2 is installed
+- make install
+- make doc    to create documentation in ocamldoc/
+
+This will install the libraries in the regular OCaml library directory
+(ocamlc -where).
+
+- make test
+  will create a test.x executable which parses and prints the dot
+  file given on its command line.
