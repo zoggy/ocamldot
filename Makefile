@@ -137,6 +137,15 @@ uninstall: dummy
 	$(OCAMLFIND) remove $(PACKAGE)
 
 ###########
+# Web
+###########
+webdoc: doc
+	mkdir -p ../ocamldot-gh-pages/refdoc
+	cp ocamldoc/* ../ocamldot-gh-pages/refdoc/
+	cp web/index.html web/style.css ../ocamldot-gh-pages/
+
+
+###########
 # headers :
 ###########
 HEADFILES=configure.in master.Makefile.in Makefile *.ml *.mli *.mly *.mll
