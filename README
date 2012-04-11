@@ -1,6 +1,6 @@
 	OCamldot
 
-*** What is Odot ***
+*** What is OCamldot ***
 OCamldot is a small library to parse and print graphviz dot files.
 Graphviz: http://www.graphviz.org
 
