@@ -86,3 +86,4 @@ GTK_PACKAGES=@GTK_PACKAGES@
 
 %.mli %.ml:%.mly
 	$(OCAMLYACC) -v $<
+

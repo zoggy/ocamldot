@@ -137,6 +137,17 @@ install: dummy
 uninstall: dummy
 	$(OCAMLFIND) remove $(PACKAGE)
 
+###########
+# headers :
+###########
+HEADFILES=configure.in master.Makefile.in Makefile *.ml *.mli *.mly *.mll
+.PHONY: headers noheaders
+headers:
+	headache -h header -c ~/.headache_config $(HEADFILES)
+
+noheaders:
+	headache -r -c ~/.headache_config $(HEADFILES)
+
 ###########################
 # additional dependencies
 ###########################
