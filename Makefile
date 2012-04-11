@@ -81,12 +81,12 @@ check: test $(TESTFILES)
 # Documentation :
 #################
 dump.odoc: *.ml *.mli
-	$(OCAMLDOC) $(OCAMLPP) $(COMPFLAGS) -keep-code -dump dump.odoc `ls $^ | grep -v test`
+	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(OCAMLPP) -keep-code -dump dump.odoc `ls $^ | grep -v test`
 
 doc:
 	$(MKDIR) ocamldoc
-	$(OCAMLDOC) $(OCAMLPP) $(COMPFLAGS) \
-	-t "The Odot library" \
+	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(OCAMLPP) \
+	-t "The OCamldot library" \
 	-html \
 	-d ocamldoc \
 	odot.mli \
