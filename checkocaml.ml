@@ -872,8 +872,9 @@ let () =
     check_ocamlfind_package conf ~fail: false "lablgtk2.gnomecanvas"
   then
     begin
+      add_subst "GTK_PACKAGES" "lablgtk2.gnomecanvas";
       add_subst "LIB_GTK" "odot_gtk.cmx";
-      add_subst "LIB_BTK_BYTE" "odot_gtk.cmo"
+      add_subst "LIB_GTK_BYTE" "odot_gtk.cmo"
     end
 ;;
 

@@ -63,6 +63,7 @@ ROOT=@ROOT@
 LIB_GTK=@LIB_GTK@
 LIB_GTK_BYTE=@LIB_GTK_BYTE@
 
+GTK_PACKAGES=@GTK_PACKAGES@
 
 # generic rules :
 #################

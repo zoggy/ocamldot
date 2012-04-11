@@ -54,8 +54,9 @@ AC_SUBST(ROOT)
 AC_SUBST(VERSION)
 AC_SUBST(PACKAGE)
 
-AC_SUST(LIB_GTK)
-AC_SUST(LIB_GTK_BYTE)
+AC_SUBST(LIB_GTK)
+AC_SUBST(LIB_GTK_BYTE)
+AC_SUBST(GTK_PACKAGES)
 
 # Finally create the master.Makefile.in
 ACFILES="master.Makefile odot_version.ml META"

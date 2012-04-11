@@ -564,6 +564,9 @@ PACKAGE_URL=
 ac_unique_file="master.Makefile.in"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+GTK_PACKAGES
+LIB_GTK_BYTE
+LIB_GTK
 PACKAGE
 VERSION
 ROOT
@@ -1670,6 +1673,10 @@ ocaml unix.cma str.cma checkocaml.ml ocaml_config.sh || exit 1
 
 ############################
 # substitutions to perform
+
+
+
+
 
 
 

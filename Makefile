@@ -24,7 +24,7 @@
 
 include master.Makefile
 
-PACKAGES=lablgtk2.gnomecanvas,unix
+PACKAGES=unix,$(GTK_PACKAGES)
 OF_FLAGS=-package $(PACKAGES)
 
 COMPFLAGS=
@@ -48,13 +48,6 @@ CMOFILES=\
 CMXFILES= $(CMOFILES:.cmo=.cmx)
 CMIFILES= $(CMOFILES:.cmo=.cmi)
 
-GTK_CMOFILES=odot_view.cmo
-GTK_CMXFILES= $(GTK_CMOFILES:.cmo=.cmx)
-GTK_CMIFILES= $(GTK_CMOFILES:.cmo=.cmi)
-
-LIB_GTK_O=$(LIB_GTK:.cmx=.o)
-LIB_GTK_CMI=$(LIB_GTK:.cmx=.cmi)
-
 all: byte opt
 byte: $(LIB_BYTE) gtk_byte
 opt: $(LIB) gtk
@@ -64,9 +57,6 @@ test: $(LIB_BYTE) test.ml
 
 gtk: $(LIB_GTK)
 gtk_byte: $(LIB_GTK_BYTE)
-
-$(LIB_GTK): $(GTK_CMIFILES) $(GTK_CMXFILES)
-$(LIB_GTK_BYTE): $(GTK_CMIFILES) $(GTK_CMOFILES)
 
 test_gtk: $(LIB_BYTE) gtk_byte test_gtk.ml
 	$(OCAMLFIND) ocamlc $(OF_FLAGS) -linkpkg -o test_gtk.x \
@@ -140,14 +130,12 @@ include .depend
 # Installation
 #################
 install: dummy
-	$(CP) $(LIB_BYTE) $(LIB_CMI) $(OCAMLLIB)
-	if test -f $(LIB); then \
-	$(CP) $(LIB) $(LIB_A) $(OCAMLLIB); fi
-	if test -f $(LIB_GTK); then \
-	$(CP) $(LIB_GTK) $(LIB_GTK_CMI) $(LIB_GTK_O) $(OCAMLLIB); fi
-	if test -f $(LIB_GTK_BYTE); then \
-	$(CP) $(LIB_GTK_BYTE) $(LIB_GTK_CMI) $(OCAMLLIB); fi
+	$(OCAMLFIND) install $(PACKAGE) META \
+	$(LIB) $(LIB:.cmxa=.a) $(LIB:.cmxa=.cmi) $(LIB:.cmxa=.mli) $(LIB_BYTE) \
+	$(LIB_GTK) $(LIB_GTK:.cmx=.o) $(LIB_GTK:.cmx=.cmi) $(LIB_GTK:.cmx=.mli) $(LIB_GTK_BYTE)
 
+uninstall: dummy
+	$(OCAMLFIND) remove $(PACKAGE)
 
 ###########################
 # additional dependencies
