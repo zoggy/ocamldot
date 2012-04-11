@@ -144,6 +144,12 @@ webdoc: doc
 	cp ocamldoc/* ../ocamldot-gh-pages/refdoc/
 	cp web/index.html web/style.css ../ocamldot-gh-pages/
 
+##########
+# Release
+##########
+archive:
+	git archive --prefix=ocamldot-$(VERSION)/ HEAD | gzip > ../ocamldot-gh-pages/ocamldot-$(VERSION).tar.gz
+
 
 ###########
 # headers :
