@@ -4,23 +4,23 @@ odot.cmo : odot_version.cmi odot_types.cmi odot_parser.cmi odot_lexer.cmo \
     odot.cmi
 odot.cmx : odot_version.cmx odot_types.cmi odot_parser.cmx odot_lexer.cmx \
     odot.cmi
+odot.cmi :
 odot_gtk.cmo : odot.cmi odot_gtk.cmi
 odot_gtk.cmx : odot.cmx odot_gtk.cmi
+odot_gtk.cmi : odot.cmi
 odot_lexer.cmo : odot_parser.cmi
 odot_lexer.cmx : odot_parser.cmx
 odot_misc.cmo : odot_misc.cmi
 odot_misc.cmx : odot_misc.cmi
+odot_misc.cmi :
 odot_parser.cmo : odot_types.cmi odot_parser.cmi
 odot_parser.cmx : odot_types.cmi odot_parser.cmi
-odot_version.cmo : odot_version.cmi
-odot_version.cmx : odot_version.cmi
-test.cmo : odot.cmi
-test.cmx : odot.cmx
-test_gtk.cmo : odot.cmi
-test_gtk.cmx : odot.cmx
-odot.cmi :
-odot_gtk.cmi : odot.cmi
-odot_misc.cmi :
 odot_parser.cmi : odot_types.cmi
 odot_types.cmi :
+odot_version.cmo : odot_version.cmi
+odot_version.cmx : odot_version.cmi
 odot_version.cmi :
+test.cmo : odot.cmi
+test.cmx : odot.cmx
+test_gtk.cmo : odot_gtk.cmi odot.cmi
+test_gtk.cmx : odot_gtk.cmx odot.cmx

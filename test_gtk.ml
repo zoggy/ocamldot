@@ -40,7 +40,7 @@ let md5sum_of_string s =
 
 class box file =
   object (self)
-    inherit Odot_view.box ~dot_program: Odot_view.Fdp
+    inherit Odot_gtk.box ~dot_program: Odot_gtk.Fdp
 	~tmp_hash: (Printf.sprintf "/tmp/%s" (md5sum_of_string file))
 	()
 
