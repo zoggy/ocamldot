@@ -203,11 +203,12 @@ let testfile flags filename =
 let buffer_size = 4096
 let string_from_descr fd =
   let rec readfd accu =
-    let str = String.create buffer_size in
+    let str = Bytes.create buffer_size in
     match restart_on_EINTR (read fd str 0) buffer_size with
     | 0 -> String.concat ""  accu
     | n ->
-        let str = if n < buffer_size then String.sub str 0 n else str in
+        let str = if n < buffer_size then Bytes.sub str 0 n else str in
+        let str = Bytes.to_string str in
         readfd (str :: accu) in
   readfd []
 ;;
@@ -217,7 +218,7 @@ let descr_from_string str fd =
     if left > 0 then
       let n = restart_on_EINTR (single_write fd str offset) left in
       writefd (offset + n) (left - n) in
-  writefd 0 (String.length str)
+  writefd 0 (Bytes.length str)
 ;;
 
 let perm = 0o640;;
@@ -336,7 +337,7 @@ let execvp_redirect redirections cmd args  =
     | In_from_string s ->
         begin match temp_file with
           Some tmp ->
-            file_of_string ~file: tmp ~contents: s;
+            file_of_string ~file: tmp ~contents: (Bytes.of_string s);
             make_redirect (In_from_file tmp);
         | None -> assert false
         end
@@ -846,8 +847,10 @@ let output_substs oc =
     (get_substs_list ())
 
 let output_substs_to_file file =
-  let contents = String.concat "\n"
-      (List.map (fun (var,v) -> Printf.sprintf "%s=\"%s\"" var v) (get_substs_list()))
+  let contents =
+    (List.map (fun (var,v) -> Printf.sprintf "%s=\"%s\"" var v) (get_substs_list()))
+    |> String.concat "\n"
+    |> Bytes.of_string
   in
   file_of_string ~file ~contents
 
