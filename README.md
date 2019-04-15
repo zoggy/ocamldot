@@ -1,14 +1,16 @@
-	OCamldot
+# OCamldot
+**(now compatible for OCaml >= 4.05)**
 
-*** What is OCamldot ***
+## What is OCamldot
 OCamldot is a small library to parse and print graphviz dot files.
+
 Graphviz: http://www.graphviz.org
 
-More details on:
-  http://zoggy.github.com/ocamldot
+### More details on:
+http://zoggy.github.com/ocamldot
 
-*** Installation
+### Installation
 See the INSTALL file for the compilation and installation procedure.
 
-*** Author ***
+## Author
 Maxence Guesdon <maxence.guesdon@inria.fr>
