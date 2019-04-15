@@ -31,7 +31,7 @@ let compass_pt_of_id id =
      | Double_quoted_id s -> s
      | Html_id s -> "<"^s^">"
   in
-  let s = String.lowercase s in
+  let s = String.lowercase_ascii s in
   match s with
     "n" -> N
    | "ne" -> NE
