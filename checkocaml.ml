@@ -203,21 +203,22 @@ let testfile flags filename =
 let buffer_size = 4096
 let string_from_descr fd =
   let rec readfd accu =
-    let str = String.create buffer_size in
-    match restart_on_EINTR (read fd str 0) buffer_size with
-    | 0 -> String.concat ""  accu
+    let str_buf = Bytes.create buffer_size in
+    match restart_on_EINTR (read fd str_buf 0) buffer_size with
+    | 0 -> Bytes.concat (Bytes.of_string "")  accu
     | n ->
-        let str = if n < buffer_size then String.sub str 0 n else str in
-        readfd (str :: accu) in
-  readfd []
+        let str_buf = if n < buffer_size then Bytes.sub str_buf 0 n else str_buf in
+        readfd (str_buf :: accu) in
+  Bytes.to_string (readfd [])
 ;;
 
 let descr_from_string str fd =
+  let str_buf = Bytes.of_string str in
   let rec writefd offset left =
     if left > 0 then
-      let n = restart_on_EINTR (single_write fd str offset) left in
+      let n = restart_on_EINTR (single_write fd str_buf offset) left in
       writefd (offset + n) (left - n) in
-  writefd 0 (String.length str)
+  writefd 0 (Bytes.length str_buf)
 ;;
 
 let perm = 0o640;;
@@ -419,7 +420,7 @@ let (<<) v1 v2 =
     | ([], _) -> true
     | (_,[]) -> false
     | (h1::q1, h2::q2) ->
-        (h1 < h2) or
+        (h1 < h2) ||
         (h1 = h2 && (iter (q1,q2)))
   in
   iter (v1,v2)
@@ -456,7 +457,6 @@ type ocaml_conf =
       ocamlmklib : string ;
       ocamlmktop : string ;
       ocamlprof : string ;
-      camlp4 : string;
       ocamlfind : string ;
       version_string : string ;
       version : version ;
@@ -620,7 +620,6 @@ let ocaml_conf ?(withopt=false) ?(ocamlfind=false) () =
     ocamlmklib = ocaml_prog "ocamlmklib" ;
     ocamlmktop = ocaml_prog "ocamlmktop" ;
     ocamlprof = ocaml_prog "ocamlprof" ;
-    camlp4 = ocaml_prog "camlp4" ;
     ocamlfind = ocaml_prog ~err: ocamlfind "ocamlfind" ;
   } in
   check_conf_versions conf;
@@ -644,7 +643,6 @@ let print_conf c =
   !print (sp "library builder:            %s\n" c.ocamlmklib);
   !print (sp "toplevel builder:           %s\n" c.ocamlmktop);
   !print (sp "profiler:                   %s\n" c.ocamlprof);
-  !print (sp "camlp4:                     %s\n" c.camlp4);
   (match c.ocamlfind with "" -> () | s ->
     !print (sp "ocamlfind:                  %s\n" s))
 
@@ -821,7 +819,7 @@ let check_ocamlfind_package ?min_version ?max_version ?(fail=true) ?not_found co
             let version = version_of_string s in
             let min = match min_version with None -> [] | Some v -> v in
             let max = match max_version with None -> [max_int] | Some v -> v in
-            if version < min or version > max then
+            if (version < min) || (version > max) then
               (
                not_found (`Package_bad_version s);
                false
@@ -864,7 +862,7 @@ let add_conf_variables c =
      "OCAMLMKLIB", c.ocamlmklib ;
      "OCAMLMKTOP", c.ocamlmktop ;
      "OCAMLPROF", c.ocamlprof ;
-     "CAMLP4", c.camlp4 ;
+     "CAMLP4", "" ;
      "OCAMLFIND", c.ocamlfind ;
      "OCAMLBIN", Filename.dirname c.ocamlc;
      "OCAMLLIB", ocaml_libdir c ;
