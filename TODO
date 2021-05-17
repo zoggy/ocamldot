@@ -1,5 +1,0 @@
-- parse html ids
-OK - parse + (concatenate double-quoted ids)
-OK - parse case-unsensitive keywords
-OK - parse compass_pt as ids
-OK - parse // comments
